@@ -1,0 +1,75 @@
+---
+title: "Tutorial"
+author: "Michał Kuć"
+date: "2024-04-15"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(Lab2)
+```
+
+# Introduction
+
+Recombination chambers are an unpopular type of ionisation chamber. They are based on an initial ion recombination phenomenon that allows the quality of the radiation field measurement to be determined.
+An example article containing information about recombination chambers is available at: [Zielczyński, 2008](https://bibliotekanauki.pl/articles/147680.pdf)
+Recombination chambers:
+
+|Chamber type| REM-2 | F1 | T5 | GW2 |
+|---|:-:|:-:|:-:|:-:|
+| Electrodes | TE* | TE* | TE* | Al |
+| Gas | CH4+N2 | C2H6 | C2H6 | CO2|
+| Application | Radiation protection | Beam | Beam | Radiation protection |
+
+\* Tissue Equivalent
+
+# Functions
+
+The project includes
+
+ * function that generates an ion collection efficiency function
+ * function that determines the recombination voltage value
+ * function that creates the sample measurement data from .xlsx file
+
+## f(u) characteristic
+f(u) characteristic is current-voltage I(U) characteristic normalized to the saturation condition I(Us)
+
+```{r fu}
+characteristic <- recombination_characteristic(seq(10, 1000, by = 10), L=4)
+attributes(characteristic)
+plot(characteristic$voltage , characteristic$current)
+
+```
+
+## Ur calculator
+
+Calculation of the recombination voltage for previously determined f(u) characteristic
+
+```{r Ur}
+recombination_voltage <- calculate_recombination_voltage(characteristic, r = 0.96)
+attributes(recombination_voltage)
+```
+
+## Read the measurement data
+
+
+```{r dataset_read}
+create_iu_dataset('data/example.xlsx')
+print(iu)
+```
+
+## Compare the measurement and synthetic data
+
+```{r compare}
+data(iu)
+IU <- iu[iu$Voltage>0,]
+IU["Value"] = IU["Value"]/max(IU["Value"])
+plot(IU, col='blue')
+points(characteristic$voltage , characteristic$current, col='red')
+legend('bottomright',inset=0.05,c("Model","Measurement"),lty=1,col=c("red","blue"),title="f(u)")
+
+```
+

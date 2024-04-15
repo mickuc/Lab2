@@ -15,7 +15,7 @@ A data frame
 data(iu)
 }
 \description{
-The data set contains 137Cs REM-2 recombination chamber IU characteristic measured on 14.09.2022.
+The data set contains 137Cs REM-2 recombination chamber IU characteristic taken 14.09.2022.
 }
 \examples{
 plot(iu$Voltage, iu$Value)

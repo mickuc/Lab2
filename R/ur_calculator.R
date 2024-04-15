@@ -11,7 +11,7 @@
 #' # Generate recombination chamber characteristic
 #' characteristic <- recombination_characteristic(seq(1, 1000, by = 1))
 #' # Calculate recombination voltage for current = r * max(current)
-#' voltage <- calculate_voltage_for_current(characteristic, r = 0.96)
+#' voltage <- calculate_recombination_voltage(characteristic, r = 0.96)
 #'
 #' @export
 

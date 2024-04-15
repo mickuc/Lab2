@@ -10,7 +10,7 @@
 #' @examples
 #' # Generate recombination chamber characteristic
 #' characteristic <- recombination_characteristic(seq(100, 200, by = 10))
-#'
+#' plot(characteristic$voltage , characteristic$current)
 #' @export
 #'
 recombination_characteristic <- function(voltage, L = 2.2, noise_level = 0.00001) {
