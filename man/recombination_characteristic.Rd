@@ -23,5 +23,5 @@ The result is returned as an object of class "recombination_characteristic".
 \examples{
 # Generate recombination chamber characteristic
 characteristic <- recombination_characteristic(seq(100, 200, by = 10))
-
+plot(characteristic$voltage , characteristic$current)
 }
